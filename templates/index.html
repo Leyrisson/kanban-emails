@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kanban de E-mails</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+  <h1>Kanban de E-mails</h1>
+  <div class="acoes">
+    <span id="resumo" class="resumo">carregando…</span>
+    <input id="novo-titulo" type="text" placeholder="Nova tarefa (Enter cria na Entrada)">
+    <button id="btn-nova">+ Card</button>
+    <button id="btn-sync" title="Ler o e-mail agora">Sincronizar</button>
+    <button id="btn-coluna">+ Coluna</button>
+  </div>
+</header>
+
+<main id="quadro" class="quadro"></main>
+
+<dialog id="dlg-card">
+  <form method="dialog">
+    <h3>Editar card</h3>
+    <label>Título <input id="c-titulo" type="text" maxlength="300"></label>
+    <label>Prioridade
+      <select id="c-prio">
+        <option value="0">Normal</option>
+        <option value="1">Alta</option>
+        <option value="2">Urgente</option>
+      </select>
+    </label>
+    <label>Remetente <input id="c-rem" type="text" disabled></label>
+    <label>Nota <textarea id="c-nota" rows="4" placeholder="Anotações"></textarea></label>
+    <div id="c-trecho" class="trecho"></div>
+    <menu>
+      <button value="apagar" class="perigo" id="c-apagar">Apagar</button>
+      <button value="salvar" class="primario" id="c-salvar">Salvar</button>
+    </menu>
+  </form>
+</dialog>
+
+<dialog id="dlg-coluna">
+  <form method="dialog">
+    <h3 id="dlg-coluna-titulo">Nova coluna</h3>
+    <label>Nome <input id="k-nome" type="text" maxlength="60" placeholder="Ex.: Revisão"></label>
+    <label>Cor <input id="k-cor" type="color" value="#3b82f6"></label>
+    <label>Limite WIP <input id="k-wip" type="number" min="0" max="99" placeholder="0 = sem limite"></label>
+    <label class="check"><input id="k-concluida" type="checkbox"> Coluna conta como concluída</label>
+    <menu>
+      <button value="apagar" class="perigo" id="k-apagar">Excluir coluna</button>
+      <button value="salvar" class="primario" id="k-salvar">Salvar</button>
+    </menu>
+  </form>
+</dialog>
+
+<script>window.TOKEN = {{ TOKEN | tojson }};</script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

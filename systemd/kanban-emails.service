@@ -1,0 +1,30 @@
+[Unit]
+Description=Kanban de E-mails (quadro Flask local)
+Documentation=file:%h/GitHub/kanban-emails/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# O venv mora FORA do repositório de propósito: o diretório do projeto é
+# publicável no GitHub e nada de .venv deveria chegar lá.
+ExecStart=%h/.local/share/kanban-emails/venv/bin/python %h/GitHub/kanban-emails/app.py
+WorkingDirectory=%h/GitHub/kanban-emails
+Environment=KANBAN_HOST=127.0.0.1
+Environment=KANBAN_PORT=5055
+Environment=KANBAN_DB=%h/.local/state/kanban-emails/kanban.db
+# Secretos: o app e o lembrete leem o mesmo arquivo. Nada de senha na unit.
+Environment=KANBAN_ENV_FILE=%h/.config/kanban-emails/credenciais.env
+Restart=on-failure
+RestartSec=5
+# Reiniciar sempre (o erro do telebot): se faltar credencial, o processo morre
+# e volta em 5s, enche o journal e nunca conserta nada. on-failure + o log em
+# arquivo é o que dá para diagnosticar.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/.local/state/kanban-emails
+
+[Install]
+WantedBy=default.target

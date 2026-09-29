@@ -1,0 +1,22 @@
+# Segredos — nunca versionar
+credenciais.env
+*.env
+!*.env.example
+
+# Ambiente virtual (mora fora do repo, mas por via das dúvidas)
+.venv/
+venv/
+
+# Banco e estado local
+*.db
+*.db-wal
+*.db-shm
+*.sqlite3
+
+# Logs
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/

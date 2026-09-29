@@ -1,0 +1,13 @@
+[Unit]
+Description=Kanban de E-mails — sincroniza a cada 10 minutos
+Documentation=file:%h/GitHub/kanban-emails/README.md
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=10min
+# Se o notebook estava dormindo na hora do tick, roda assim que acorda.
+Persistent=true
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

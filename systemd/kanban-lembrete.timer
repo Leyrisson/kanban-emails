@@ -1,0 +1,15 @@
+[Unit]
+Description=Kanban de E-mails — lembretes às 10h, 14h e 17h
+Documentation=file:%h/GitHub/kanban-emails/README.md
+
+[Timer]
+# Três horas do dia, no fuso local. Com Persistent=true, se o notebook estava
+# fechado às 17h, o resumo chega assim que ele abre — o que era a intenção
+# de "olhar o quadro no fim do dia".
+OnCalendar=*-*-* 10,14,17:00:00
+Persistent=true
+AccuracySec=1min
+RandomizedDelaySec=30
+
+[Install]
+WantedBy=timers.target

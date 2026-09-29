@@ -1,0 +1,16 @@
+[Unit]
+Description=Kanban de E-mails — lembrete das 10h, 14h e 17h no Telegram
+Documentation=file:%h/GitHub/kanban-emails/README.md
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/share/kanban-emails/venv/bin/python %h/GitHub/kanban-emails/lembrete.py
+WorkingDirectory=%h/GitHub/kanban-emails
+Environment=KANBAN_DB=%h/.local/state/kanban-emails/kanban.db
+Environment=KANBAN_ENV_FILE=%h/.config/kanban-emails/credenciais.env
+TimeoutStartSec=60
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/.local/state/kanban-emails

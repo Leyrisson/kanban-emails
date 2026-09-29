@@ -1,0 +1,17 @@
+[Unit]
+Description=Kanban de E-mails — sincroniza a caixa de entrada (IMAP)
+Documentation=file:%h/GitHub/kanban-emails/README.md
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/share/kanban-emails/venv/bin/python %h/GitHub/kanban-emails/importer.py
+WorkingDirectory=%h/GitHub/kanban-emails
+Environment=KANBAN_DB=%h/.local/state/kanban-emails/kanban.db
+Environment=KANBAN_ENV_FILE=%h/.config/kanban-emails/credenciais.env
+# Sem rede = falha rápida: o timer tenta de novo em 10 min.
+TimeoutStartSec=300
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/.local/state/kanban-emails
